@@ -14,4 +14,12 @@ class PUZZLEPLATFORMER_API AMovingPlatform : public AStaticMeshActor
 {
 	GENERATED_BODY()
 	
+public:
+	AMovingPlatform();
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
+
+private:
+	UPROPERTY(EditAnywhere)
+		float speed = 20.0f;
 };
