@@ -19,7 +19,11 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(EditAnywhere, Meta = (MakeEditWidget = true))
+	FVector TargetLocation;
+
 private:
 	UPROPERTY(EditAnywhere)
-		float speed = 20.0f;
+	float speed = 1.0f;
+
 };

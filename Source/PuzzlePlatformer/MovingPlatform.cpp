@@ -1,8 +1,6 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "MovingPlatform.h"
-
+#include <math.h>
+#include "Engine/World.h"
 
 AMovingPlatform::AMovingPlatform()
 {
@@ -28,7 +26,12 @@ void AMovingPlatform::Tick(float DeltaTime)
 	if (HasAuthority())
 	{
 		FVector Location = GetActorLocation();
-		Location += FVector(speed * DeltaTime, 0, 0);
+		FVector GlobalTargetLocation = GetTransform().TransformPosition(TargetLocation);
+		FVector Direction = (GlobalTargetLocation - Location).GetSafeNormal();
+
+		float omega = FMath::Sin(GetWorld()->TimeSeconds);
+		Location += Direction * omega;
+
 		SetActorLocation(Location);
 	}
 }
