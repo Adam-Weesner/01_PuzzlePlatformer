@@ -4,6 +4,7 @@
 #include "PlatformTrigger.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/BoxComponent.h"
+#include "MovingPlatform.h"
 
 // Sets default values
 APlatformTrigger::APlatformTrigger()
@@ -15,11 +16,14 @@ APlatformTrigger::APlatformTrigger()
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
 	if (!ensure(Mesh)) return;
-	Mesh->AttachTo(RootComponent);
+	Mesh->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 
 	TriggerVolume = CreateDefaultSubobject<UBoxComponent>("TriggerVolume");
 	if (!ensure(TriggerVolume)) return;
-	TriggerVolume->AttachTo(RootComponent);
+	TriggerVolume->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+
+	TriggerVolume->OnComponentBeginOverlap.AddDynamic(this, &APlatformTrigger::OnOverlapBegin);
+	TriggerVolume->OnComponentEndOverlap.AddDynamic(this, &APlatformTrigger::OnOverlapEnd);
 }
 
 // Called when the game starts or when spawned
@@ -36,3 +40,22 @@ void APlatformTrigger::Tick(float DeltaTime)
 
 }
 
+void APlatformTrigger::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Overlap Begin: "));
+
+	for (auto platform : PlatformsToTrigger)
+	{
+		platform->AddActiveTrigger();
+	}
+}
+
+void APlatformTrigger::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Overlap End:"));
+
+	for (auto platform : PlatformsToTrigger)
+	{
+		platform->RemoveActiveTrigger();
+	}
+}
