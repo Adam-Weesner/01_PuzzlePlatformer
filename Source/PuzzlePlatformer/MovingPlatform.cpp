@@ -1,3 +1,4 @@
+// Written by Adam Weesner @2020
 #include "MovingPlatform.h"
 #include <math.h>
 #include "Engine/World.h"
