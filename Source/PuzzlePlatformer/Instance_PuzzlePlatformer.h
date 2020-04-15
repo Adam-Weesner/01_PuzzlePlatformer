@@ -2,6 +2,7 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
+#include "Blueprint/UserWidget.h"
 #include "Instance_PuzzlePlatformer.generated.h"
 
 UCLASS()
@@ -19,11 +20,14 @@ public:
 	UFUNCTION(Exec)
 	void Join(const FString address);
 
-	UPROPERTY(EditAnywhere)
+	UFUNCTION(Exec)
+	void NextMap();
+
+	UPROPERTY(EditDefaultsOnly)
 	TArray<TAssetPtr<UWorld>> Levels;
 
 private:
-	void NextMap();
+	void LoadMap();
 
 	int LevelIndex = 0;
 };

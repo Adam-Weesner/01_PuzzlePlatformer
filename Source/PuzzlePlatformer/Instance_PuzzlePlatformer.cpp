@@ -22,7 +22,7 @@ void UInstance_PuzzlePlatformer::Host()
 	FString output = "Hosting";
 	Engine->AddOnScreenDebugMessage(0, 5.0f, FColor::Yellow, output);
 
-	NextMap();
+	LoadMap();
 }
 
 void UInstance_PuzzlePlatformer::Join(const FString address)
@@ -41,15 +41,20 @@ void UInstance_PuzzlePlatformer::Join(const FString address)
 
 void UInstance_PuzzlePlatformer::NextMap()
 {
-	UWorld* World = GetWorld();
-	if (!ensure(World)) return;
-
 	LevelIndex++;
 
 	if (LevelIndex >= Levels.Num())
 	{
 		LevelIndex = 0;
 	}
+
+	LoadMap();
+}
+
+void UInstance_PuzzlePlatformer::LoadMap()
+{
+	UWorld* World = GetWorld();
+	if (!ensure(World)) return;
 
 	FString LevelPath = Levels[LevelIndex].GetAssetName();
 	World->ServerTravel(LevelPath + "?listen");
