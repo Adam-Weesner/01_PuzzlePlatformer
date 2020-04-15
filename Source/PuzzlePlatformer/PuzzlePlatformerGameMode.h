@@ -10,9 +10,6 @@ UCLASS(minimalapi)
 class APuzzlePlatformerGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
-
-public:
-	APuzzlePlatformerGameMode();
 };
 
 

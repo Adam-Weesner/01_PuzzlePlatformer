@@ -18,4 +18,12 @@ public:
 
 	UFUNCTION(Exec)
 	void Join(const FString address);
+
+	UPROPERTY(EditAnywhere)
+	TArray<TAssetPtr<UWorld>> Levels;
+
+private:
+	void NextMap();
+
+	int LevelIndex = 0;
 };

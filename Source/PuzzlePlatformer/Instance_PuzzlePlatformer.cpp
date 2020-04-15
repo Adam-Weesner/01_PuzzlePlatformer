@@ -1,6 +1,7 @@
 // Written by Adam Weesner @2020
 #include "Instance_PuzzlePlatformer.h"
 #include "Engine/Engine.h"
+#include "Misc/Paths.h"
 
 UInstance_PuzzlePlatformer::UInstance_PuzzlePlatformer(const FObjectInitializer& ObjectInitializer)
 {
@@ -17,7 +18,10 @@ void UInstance_PuzzlePlatformer::Host()
 	UEngine* Engine = GetEngine();
 	if (!Engine) return;
 
-	Engine->AddOnScreenDebugMessage(0, 5.0f, FColor::Yellow, TEXT("Hosting"));
+	FString output = "Hosting";
+	Engine->AddOnScreenDebugMessage(0, 5.0f, FColor::Yellow, output);
+
+	NextMap();
 }
 
 void UInstance_PuzzlePlatformer::Join(const FString address)
@@ -27,4 +31,20 @@ void UInstance_PuzzlePlatformer::Join(const FString address)
 	FString output = "Joining: " + address;
 
 	Engine->AddOnScreenDebugMessage(0, 5.0f, FColor::Yellow, output);
+}
+
+void UInstance_PuzzlePlatformer::NextMap()
+{
+	UWorld* World = GetWorld();
+	if (!ensure(World)) return;
+
+	LevelIndex++;
+
+	if (LevelIndex >= Levels.Num())
+	{
+		LevelIndex = 0;
+	}
+
+	FString LevelPath = Levels[LevelIndex].GetAssetName();
+	World->ServerTravel(LevelPath + "?listen");
 }
