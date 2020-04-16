@@ -19,4 +19,11 @@ void AUMGHandler::LoadMenu()
 
 	Menu->bIsFocusable = true;
 	Menu->AddToViewport();
+
+	FInputModeUIOnly inputMode;
+	inputMode.SetWidgetToFocus(Menu->TakeWidget());
+	inputMode.SetLockMouseToViewportBehavior(EMouseLockMode::LockInFullscreen);
+
+	PlayerController->bShowMouseCursor = true;
+	PlayerController->SetInputMode(inputMode);
 }
