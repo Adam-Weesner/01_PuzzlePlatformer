@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Interface_MainMenu.h"
 #include "MainMenu.generated.h"
 
 /**
@@ -15,20 +16,30 @@ class PUZZLEPLATFORMER_API UMainMenu : public UUserWidget
 	GENERATED_BODY()
 
 public:
+	void SetMenuInterface(IInterface_MainMenu* InMenuInterface);
+
+	void Setup();
+
+protected:
 	virtual bool Initialize() override;
 
-	UPROPERTY(meta = (BindWidget))
-	class UButton* HostButton;
-	
-	UPROPERTY(meta = (BindWidget))
-	class UButton* JoinButton;
+	UFUNCTION()
+	virtual void HostOnClicked();
+
+	UFUNCTION()
+	virtual void JoinOnClicked();
+
+	virtual void OnLevelRemovedFromWorld(ULevel* InLevel, UWorld* InWorld) override;
 
 private:
 	bool BindButtons();
 
-	UFUNCTION()
-	void HostOnClicked();
+	UPROPERTY(meta = (BindWidget))
+	class UButton* HostButton;
 
-	UFUNCTION()
-	void JoinOnClicked();
+	UPROPERTY(meta = (BindWidget))
+	class UButton* JoinButton;
+
+	IInterface_MainMenu* MenuInterface;
+	APlayerController* PlayerController;
 };

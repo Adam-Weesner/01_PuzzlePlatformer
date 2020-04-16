@@ -1,10 +1,14 @@
 // Written by Adam Weesner @2020
 #include "UMGHandler.h"
 #include "Kismet/GameplayStatics.h"
+#include "MenuSystem/MainMenu.h"
+#include "Instance_PuzzlePlatformer.h"
 
 void AUMGHandler::BeginPlay()
 {
 	Super::BeginPlay();
+
+	instance = Cast<UInstance_PuzzlePlatformer>(GetGameInstance());
 }
 
 void AUMGHandler::LoadMenu()
@@ -14,16 +18,17 @@ void AUMGHandler::LoadMenu()
 	PlayerController = UGameplayStatics::GetPlayerController(this, 0);
 	if (!ensure(PlayerController)) return;
 
-	UUserWidget* Menu = CreateWidget(PlayerController, WBP_MainMenu);
+	Menu = CreateWidget<UMainMenu>(PlayerController, WBP_MainMenu);
 	if (!ensure(Menu)) return;
 
-	Menu->bIsFocusable = true;
-	Menu->AddToViewport();
+	Menu->Setup();
 
-	FInputModeUIOnly inputMode;
-	inputMode.SetWidgetToFocus(Menu->TakeWidget());
-	inputMode.SetLockMouseToViewportBehavior(EMouseLockMode::LockInFullscreen);
+	Menu->SetMenuInterface(this);
+}
 
-	PlayerController->bShowMouseCursor = true;
-	PlayerController->SetInputMode(inputMode);
+void AUMGHandler::Host()
+{
+	if (!ensure(instance)) return;
+	
+	instance->Host();
 }

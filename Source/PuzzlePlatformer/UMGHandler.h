@@ -1,17 +1,17 @@
 // Written by Adam Weesner @2020
-
 #pragma once
-
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
 #include "Blueprint/UserWidget.h"
+#include "MenuSystem/Interface_MainMenu.h"
+#include "Instance_PuzzlePlatformer.h"
 #include "UMGHandler.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PUZZLEPLATFORMER_API AUMGHandler : public AHUD
+class PUZZLEPLATFORMER_API AUMGHandler : public AHUD, public IInterface_MainMenu
 {
 	GENERATED_BODY()
 	
@@ -21,9 +21,14 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void LoadMenu();
 
+	UFUNCTION()
+	void Host();
+
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UUserWidget> WBP_MainMenu;
 
 private:
+	UInstance_PuzzlePlatformer* instance;
 	APlayerController* PlayerController;
+	class UMainMenu* Menu;
 };
