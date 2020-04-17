@@ -4,27 +4,20 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "MenuWidget.h"
 #include "InGameMenu.generated.h"
 
 class UButton;
 
 UCLASS()
-class PUZZLEPLATFORMER_API UInGameMenu : public UUserWidget
+class PUZZLEPLATFORMER_API UInGameMenu : public UMenuWidget
 {
 	GENERATED_BODY()
 
-
-public:
-	void Setup();
-	void TearDown();
-
 protected:
-	virtual bool Initialize() override;
-	virtual void OnLevelRemovedFromWorld(ULevel* InLevel, UWorld* InWorld) override;
+	virtual bool BindWidgets() override;
 	
 private:
-	bool BindWidgets();
-
 	UFUNCTION()
 	void OnBackButtonReleased();
 
@@ -36,6 +29,4 @@ private:
 
 	UPROPERTY(meta = (BindWidget))
 	UButton* MainMenuButton;
-
-	APlayerController* PlayerController;
 };

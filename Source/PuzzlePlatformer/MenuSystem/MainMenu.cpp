@@ -1,42 +1,13 @@
 // Written by Adam Weesner @2020
 #include "MainMenu.h"
-#include "Kismet/GameplayStatics.h"
 #include "Components/Button.h"
 #include "Components/WidgetSwitcher.h"
 #include "Components/EditableTextBox.h"
 
-bool UMainMenu::Initialize()
+bool UMainMenu::BindWidgets()
 {
-	if (!Super::Initialize()) return false;
+	Super::BindWidgets();
 
-	if (!BindButtons()) return false;
-
-	return true;
-}
-
-void UMainMenu::Setup()
-{
-	PlayerController = UGameplayStatics::GetPlayerController(this, 0);
-	if (!ensure(PlayerController)) return;
-
-	bIsFocusable = true;
-	AddToViewport();
-
-	FInputModeUIOnly inputMode;
-	inputMode.SetWidgetToFocus(TakeWidget());
-	inputMode.SetLockMouseToViewportBehavior(EMouseLockMode::LockInFullscreen);
-
-	PlayerController->bShowMouseCursor = true;
-	PlayerController->SetInputMode(inputMode);
-}
-
-void UMainMenu::SetMenuInterface(IInterface_MainMenu* InMenuInterface)
-{
-	this->MenuInterface = InMenuInterface;
-}
-
-bool UMainMenu::BindButtons()
-{
 	if (!ensure(HostButton)) return false;
 	if (!ensure(JoinMenuButton)) return false;
 	if (!ensure(JoinButton)) return false;
@@ -84,10 +55,7 @@ void UMainMenu::OnBackButtonReleased()
 	MenuSwitcher->SetActiveWidget(MainMenu);
 }
 
-void UMainMenu::OnLevelRemovedFromWorld(ULevel* InLevel, UWorld* InWorld)
+void UMainMenu::SetMenuInterface(IInterface_MainMenu* InMenuInterface)
 {
-	FInputModeGameOnly inputMode;
-	PlayerController->bShowMouseCursor = false;
-	PlayerController->SetInputMode(inputMode);
-	RemoveFromViewport();
+	this->MenuInterface = InMenuInterface;
 }

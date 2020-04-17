@@ -19,7 +19,7 @@ void AUMGHandler::LoadMenu()
 	PlayerController = UGameplayStatics::GetPlayerController(this, 0);
 	if (!ensure(PlayerController)) return;
 
-	Menu = CreateWidget<UMainMenu>(PlayerController, WBP_MainMenu);
+	UMainMenu* Menu = CreateWidget<UMainMenu>(PlayerController, WBP_MainMenu);
 	if (!ensure(Menu)) return;
 
 	Menu->Setup();
@@ -27,24 +27,17 @@ void AUMGHandler::LoadMenu()
 	Menu->SetMenuInterface(this);
 }
 
-void AUMGHandler::ToggleInGameMenu(bool turnOn)
+void AUMGHandler::ToggleInGameMenu()
 {
 	if (!ensure(WBP_InGameMenu)) return;
 
 	PlayerController = UGameplayStatics::GetPlayerController(this, 0);
 	if (!ensure(PlayerController)) return;
 
-	if (turnOn)
-	{
-		InGameMenu = CreateWidget<UInGameMenu>(PlayerController, WBP_InGameMenu);
-		if (!ensure(InGameMenu)) return;
+	UInGameMenu* Menu = CreateWidget<UInGameMenu>(PlayerController, WBP_InGameMenu);
+	if (!ensure(Menu)) return;
 
-		InGameMenu->Setup();
-	}
-	else
-	{
-		InGameMenu->TearDown();
-	}
+	Menu->Setup();
 }
 
 void AUMGHandler::Host()

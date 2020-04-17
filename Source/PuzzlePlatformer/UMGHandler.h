@@ -7,9 +7,8 @@
 #include "Instance_PuzzlePlatformer.h"
 #include "UMGHandler.generated.h"
 
-/**
- * 
- */
+class UMenuWidget;
+
 UCLASS()
 class PUZZLEPLATFORMER_API AUMGHandler : public AHUD, public IInterface_MainMenu
 {
@@ -22,7 +21,7 @@ public:
 	void LoadMenu();
 
 	UFUNCTION(BlueprintCallable)
-	void ToggleInGameMenu(bool turnOn);
+	void ToggleInGameMenu();
 
 	UFUNCTION()
 	void Host();
@@ -43,6 +42,4 @@ protected:
 private:
 	UInstance_PuzzlePlatformer* instance;
 	APlayerController* PlayerController;
-	class UMainMenu* Menu;
-	class UInGameMenu* InGameMenu;
 };

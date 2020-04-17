@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "MenuWidget.h"
 #include "Interface_MainMenu.h"
 #include "MainMenu.generated.h"
 
@@ -12,29 +13,23 @@ class UWidgetSwitcher;
 class UEditableTextBox;
 
 UCLASS()
-class PUZZLEPLATFORMER_API UMainMenu : public UUserWidget
+class PUZZLEPLATFORMER_API UMainMenu : public UMenuWidget
 {
 	GENERATED_BODY()
 
 public:
 	void SetMenuInterface(IInterface_MainMenu* InMenuInterface);
 
-	void Setup();
-
 protected:
-	virtual bool Initialize() override;
-
 	UFUNCTION()
 	virtual void OnHostButtonReleased();
 
 	UFUNCTION()
 	virtual void OnJoinButtonReleased();
 
-	virtual void OnLevelRemovedFromWorld(ULevel* InLevel, UWorld* InWorld) override;
+	virtual bool BindWidgets() override;
 
 private:
-	bool BindButtons();
-
 	UPROPERTY(meta = (BindWidget))
 	UWidgetSwitcher* MenuSwitcher;
 
@@ -68,5 +63,4 @@ private:
 	UButton* BackButton;
 
 	IInterface_MainMenu* MenuInterface;
-	APlayerController* PlayerController;
 };
