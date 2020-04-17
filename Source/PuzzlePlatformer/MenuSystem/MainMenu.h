@@ -25,10 +25,10 @@ protected:
 	virtual bool Initialize() override;
 
 	UFUNCTION()
-	virtual void OnHostButtonClicked();
+	virtual void OnHostButtonReleased();
 
 	UFUNCTION()
-	virtual void OnJoinButtonClicked();
+	virtual void OnJoinButtonReleased();
 
 	virtual void OnLevelRemovedFromWorld(ULevel* InLevel, UWorld* InWorld) override;
 
@@ -40,7 +40,7 @@ private:
 
 	// Main menu screen
 	UFUNCTION()
-	void OnJoinGameButtonClicked();
+	void OnJoinGameButtonReleased();
 
 	UPROPERTY(meta = (BindWidget))
 	UWidget* MainMenu;
@@ -53,7 +53,7 @@ private:
 
 	// Join game screen
 	UFUNCTION()
-	void OnBackButtonClicked();
+	void OnBackButtonReleased();
 
 	UPROPERTY(meta = (BindWidget))
 	UWidget* JoinMenu;

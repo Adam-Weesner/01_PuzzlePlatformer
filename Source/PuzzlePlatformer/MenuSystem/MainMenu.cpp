@@ -42,22 +42,22 @@ bool UMainMenu::BindButtons()
 	if (!ensure(JoinButton)) return false;
 	if (!ensure(BackButton)) return false;
 
-	HostButton->OnReleased.AddDynamic(this, &UMainMenu::OnHostButtonClicked);
-	JoinMenuButton->OnReleased.AddDynamic(this, &UMainMenu::OnJoinGameButtonClicked);
-	JoinButton->OnReleased.AddDynamic(this, &UMainMenu::OnJoinButtonClicked);
-	BackButton->OnReleased.AddDynamic(this, &UMainMenu::OnBackButtonClicked);
+	HostButton->OnReleased.AddDynamic(this, &UMainMenu::OnHostButtonReleased);
+	JoinMenuButton->OnReleased.AddDynamic(this, &UMainMenu::OnJoinGameButtonReleased);
+	JoinButton->OnReleased.AddDynamic(this, &UMainMenu::OnJoinButtonReleased);
+	BackButton->OnReleased.AddDynamic(this, &UMainMenu::OnBackButtonReleased);
 
 	return true;
 }
 
-void UMainMenu::OnHostButtonClicked()
+void UMainMenu::OnHostButtonReleased()
 {
 	if (!ensure(MenuInterface)) return;
 	
 	MenuInterface->Host();
 }
 
-void UMainMenu::OnJoinGameButtonClicked()
+void UMainMenu::OnJoinGameButtonReleased()
 {
 	if (!ensure(MenuSwitcher)) return;
 	if (!ensure(JoinMenu)) return;
@@ -65,7 +65,7 @@ void UMainMenu::OnJoinGameButtonClicked()
 	MenuSwitcher->SetActiveWidget(JoinMenu);
 }
 
-void UMainMenu::OnJoinButtonClicked()
+void UMainMenu::OnJoinButtonReleased()
 {
 	if (!ensure(MenuInterface)) return;
 
@@ -76,7 +76,7 @@ void UMainMenu::OnJoinButtonClicked()
 	MenuInterface->Join(ipAddressInput);
 }
 
-void UMainMenu::OnBackButtonClicked()
+void UMainMenu::OnBackButtonReleased()
 {
 	if (!ensure(MenuSwitcher)) return;
 	if (!ensure(MainMenu)) return;

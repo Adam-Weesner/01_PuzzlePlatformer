@@ -2,6 +2,7 @@
 #include "UMGHandler.h"
 #include "Kismet/GameplayStatics.h"
 #include "MenuSystem/MainMenu.h"
+#include "MenuSystem/InGameMenu.h"
 #include "Instance_PuzzlePlatformer.h"
 
 void AUMGHandler::BeginPlay()
@@ -26,6 +27,26 @@ void AUMGHandler::LoadMenu()
 	Menu->SetMenuInterface(this);
 }
 
+void AUMGHandler::ToggleInGameMenu(bool turnOn)
+{
+	if (!ensure(WBP_InGameMenu)) return;
+
+	PlayerController = UGameplayStatics::GetPlayerController(this, 0);
+	if (!ensure(PlayerController)) return;
+
+	if (turnOn)
+	{
+		InGameMenu = CreateWidget<UInGameMenu>(PlayerController, WBP_InGameMenu);
+		if (!ensure(InGameMenu)) return;
+
+		InGameMenu->Setup();
+	}
+	else
+	{
+		InGameMenu->TearDown();
+	}
+}
+
 void AUMGHandler::Host()
 {
 	if (!ensure(instance)) return;
@@ -38,4 +59,8 @@ void AUMGHandler::Join(FString ipAddress)
 	if (!ensure(instance)) return;
 
 	instance->Join(ipAddress);
+}
+
+void AUMGHandler::ToggleMenu(bool isActive)
+{
 }

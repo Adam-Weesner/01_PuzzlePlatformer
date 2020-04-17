@@ -6,12 +6,10 @@
 
 UInstance_PuzzlePlatformer::UInstance_PuzzlePlatformer(const FObjectInitializer& ObjectInitializer)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Constructor"));
 }
 
 void UInstance_PuzzlePlatformer::Init()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Init"));
 }
 
 void UInstance_PuzzlePlatformer::Host()

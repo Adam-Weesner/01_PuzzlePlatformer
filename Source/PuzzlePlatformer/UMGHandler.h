@@ -21,6 +21,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void LoadMenu();
 
+	UFUNCTION(BlueprintCallable)
+	void ToggleInGameMenu(bool turnOn);
+
 	UFUNCTION()
 	void Host();
 
@@ -30,8 +33,16 @@ public:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UUserWidget> WBP_MainMenu;
 
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UUserWidget> WBP_InGameMenu;
+
+protected:
+	UFUNCTION(BlueprintCallable)
+	void ToggleMenu(bool isActive);
+
 private:
 	UInstance_PuzzlePlatformer* instance;
 	APlayerController* PlayerController;
 	class UMainMenu* Menu;
+	class UInGameMenu* InGameMenu;
 };
