@@ -32,3 +32,10 @@ void AUMGHandler::Host()
 	
 	instance->Host();
 }
+
+void AUMGHandler::Join(FString ipAddress)
+{
+	if (!ensure(instance)) return;
+
+	instance->Join(ipAddress);
+}

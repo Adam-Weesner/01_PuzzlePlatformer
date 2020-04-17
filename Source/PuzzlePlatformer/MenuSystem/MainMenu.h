@@ -7,9 +7,10 @@
 #include "Interface_MainMenu.h"
 #include "MainMenu.generated.h"
 
-/**
- * 
- */
+class UButton;
+class UWidgetSwitcher;
+class UEditableTextBox;
+
 UCLASS()
 class PUZZLEPLATFORMER_API UMainMenu : public UUserWidget
 {
@@ -24,10 +25,10 @@ protected:
 	virtual bool Initialize() override;
 
 	UFUNCTION()
-	virtual void HostOnClicked();
+	virtual void OnHostButtonClicked();
 
 	UFUNCTION()
-	virtual void JoinOnClicked();
+	virtual void OnJoinButtonClicked();
 
 	virtual void OnLevelRemovedFromWorld(ULevel* InLevel, UWorld* InWorld) override;
 
@@ -35,10 +36,36 @@ private:
 	bool BindButtons();
 
 	UPROPERTY(meta = (BindWidget))
-	class UButton* HostButton;
+	UWidgetSwitcher* MenuSwitcher;
+
+	// Main menu screen
+	UFUNCTION()
+	void OnJoinGameButtonClicked();
 
 	UPROPERTY(meta = (BindWidget))
-	class UButton* JoinButton;
+	UWidget* MainMenu;
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* HostButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* JoinMenuButton;
+
+	// Join game screen
+	UFUNCTION()
+	void OnBackButtonClicked();
+
+	UPROPERTY(meta = (BindWidget))
+	UWidget* JoinMenu;
+
+	UPROPERTY(meta = (BindWidget))
+	UEditableTextBox* IPAddressTextBox;
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* JoinButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* BackButton;
 
 	IInterface_MainMenu* MenuInterface;
 	APlayerController* PlayerController;

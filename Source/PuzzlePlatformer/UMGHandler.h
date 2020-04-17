@@ -24,6 +24,9 @@ public:
 	UFUNCTION()
 	void Host();
 
+	UFUNCTION()
+	void Join(FString ipAddress);
+
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UUserWidget> WBP_MainMenu;
 
