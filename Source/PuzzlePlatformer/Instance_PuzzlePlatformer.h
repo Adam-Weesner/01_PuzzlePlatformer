@@ -23,6 +23,12 @@ public:
 	UFUNCTION(Exec)
 	void NextMap();
 
+	UFUNCTION()
+	void LeaveServer();
+
+	UFUNCTION()
+	void ExitGame();
+
 	UPROPERTY(EditDefaultsOnly)
 	TArray<TAssetPtr<UWorld>> Levels;
 

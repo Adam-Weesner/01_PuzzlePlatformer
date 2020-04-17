@@ -11,6 +11,11 @@ bool UMenuWidget::Initialize()
 	return true;
 }
 
+void UMenuWidget::SetMenuInterface(IInterface_MainMenu* InMenuInterface)
+{
+	this->MenuInterface = InMenuInterface;
+}
+
 void UMenuWidget::TearDown()
 {
 	PlayerController = UGameplayStatics::GetPlayerController(this, 0);

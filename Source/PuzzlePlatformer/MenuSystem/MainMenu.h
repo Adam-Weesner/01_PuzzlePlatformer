@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "MenuWidget.h"
-#include "Interface_MainMenu.h"
 #include "MainMenu.generated.h"
 
 class UButton;
@@ -16,9 +15,6 @@ UCLASS()
 class PUZZLEPLATFORMER_API UMainMenu : public UMenuWidget
 {
 	GENERATED_BODY()
-
-public:
-	void SetMenuInterface(IInterface_MainMenu* InMenuInterface);
 
 protected:
 	UFUNCTION()
@@ -37,6 +33,9 @@ private:
 	UFUNCTION()
 	void OnJoinGameButtonReleased();
 
+	UFUNCTION()
+	void OnExitGameButtonReleased();
+
 	UPROPERTY(meta = (BindWidget))
 	UWidget* MainMenu;
 
@@ -45,6 +44,9 @@ private:
 
 	UPROPERTY(meta = (BindWidget))
 	UButton* JoinMenuButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* ExitGameButton;
 
 	// Join game screen
 	UFUNCTION()
@@ -61,6 +63,4 @@ private:
 
 	UPROPERTY(meta = (BindWidget))
 	UButton* BackButton;
-
-	IInterface_MainMenu* MenuInterface;
 };

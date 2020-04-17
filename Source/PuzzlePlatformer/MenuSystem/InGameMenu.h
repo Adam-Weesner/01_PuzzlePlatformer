@@ -24,9 +24,15 @@ private:
 	UFUNCTION()
 	void OnMainMenuButtonReleased();
 
+	UFUNCTION()
+	void OnExitGameButtonReleased();
+
 	UPROPERTY(meta = (BindWidget))
 	UButton* BackButton;
 
 	UPROPERTY(meta = (BindWidget))
 	UButton* MainMenuButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* ExitGameButton;
 };

@@ -9,9 +9,11 @@ bool UInGameMenu::BindWidgets()
 
 	if (!ensure(BackButton)) return false;
 	if (!ensure(MainMenuButton)) return false;
+	if (!ensure(ExitGameButton)) return false;
 
 	BackButton->OnReleased.AddDynamic(this, &UInGameMenu::OnBackButtonReleased);
 	MainMenuButton->OnReleased.AddDynamic(this, &UInGameMenu::OnMainMenuButtonReleased);
+	ExitGameButton->OnReleased.AddDynamic(this, &UInGameMenu::OnExitGameButtonReleased);
 
 	return true;
 }
@@ -23,4 +25,14 @@ void UInGameMenu::OnBackButtonReleased()
 
 void UInGameMenu::OnMainMenuButtonReleased()
 {
+	if (!ensure(MenuInterface)) return;
+
+	MenuInterface->LeaveServer();
+}
+
+void UInGameMenu::OnExitGameButtonReleased()
+{
+	if (!ensure(MenuInterface)) return;
+
+	MenuInterface->ExitGame();
 }

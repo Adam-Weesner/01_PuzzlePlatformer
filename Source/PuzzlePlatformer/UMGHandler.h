@@ -29,15 +29,17 @@ public:
 	UFUNCTION()
 	void Join(FString ipAddress);
 
+	UFUNCTION()
+	void LeaveServer();
+
+	UFUNCTION()
+	void ExitGame();
+
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UUserWidget> WBP_MainMenu;
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UUserWidget> WBP_InGameMenu;
-
-protected:
-	UFUNCTION(BlueprintCallable)
-	void ToggleMenu(bool isActive);
 
 private:
 	UInstance_PuzzlePlatformer* instance;

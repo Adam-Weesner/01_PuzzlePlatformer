@@ -20,7 +20,7 @@ void UInstance_PuzzlePlatformer::Host()
 	FString output = "Hosting";
 	Engine->AddOnScreenDebugMessage(0, 5.0f, FColor::Yellow, output);
 
-	LoadMap();
+	NextMap();
 }
 
 void UInstance_PuzzlePlatformer::Join(const FString address)
@@ -47,6 +47,24 @@ void UInstance_PuzzlePlatformer::NextMap()
 	}
 
 	LoadMap();
+}
+
+void UInstance_PuzzlePlatformer::LeaveServer()
+{
+	APlayerController* PlayerController = GetFirstLocalPlayerController();
+	if (!ensure(PlayerController)) return;
+
+	LevelIndex = 0;
+
+	PlayerController->ClientTravel(Levels[LevelIndex].GetAssetName(), ETravelType::TRAVEL_Absolute);
+}
+
+void UInstance_PuzzlePlatformer::ExitGame()
+{
+	APlayerController* PlayerController = GetFirstLocalPlayerController();
+	if (!ensure(PlayerController)) return;
+
+	PlayerController->ConsoleCommand("quit");
 }
 
 void UInstance_PuzzlePlatformer::LoadMap()

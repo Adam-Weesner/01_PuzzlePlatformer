@@ -17,6 +17,7 @@ bool UMainMenu::BindWidgets()
 	JoinMenuButton->OnReleased.AddDynamic(this, &UMainMenu::OnJoinGameButtonReleased);
 	JoinButton->OnReleased.AddDynamic(this, &UMainMenu::OnJoinButtonReleased);
 	BackButton->OnReleased.AddDynamic(this, &UMainMenu::OnBackButtonReleased);
+	ExitGameButton->OnReleased.AddDynamic(this, &UMainMenu::OnExitGameButtonReleased);
 
 	return true;
 }
@@ -36,6 +37,11 @@ void UMainMenu::OnJoinGameButtonReleased()
 	MenuSwitcher->SetActiveWidget(JoinMenu);
 }
 
+void UMainMenu::OnExitGameButtonReleased()
+{
+	MenuInterface->ExitGame();
+}
+
 void UMainMenu::OnJoinButtonReleased()
 {
 	if (!ensure(MenuInterface)) return;
@@ -53,9 +59,4 @@ void UMainMenu::OnBackButtonReleased()
 	if (!ensure(MainMenu)) return;
 
 	MenuSwitcher->SetActiveWidget(MainMenu);
-}
-
-void UMainMenu::SetMenuInterface(IInterface_MainMenu* InMenuInterface)
-{
-	this->MenuInterface = InMenuInterface;
 }

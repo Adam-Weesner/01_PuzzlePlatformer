@@ -23,7 +23,6 @@ void AUMGHandler::LoadMenu()
 	if (!ensure(Menu)) return;
 
 	Menu->Setup();
-
 	Menu->SetMenuInterface(this);
 }
 
@@ -38,6 +37,7 @@ void AUMGHandler::ToggleInGameMenu()
 	if (!ensure(Menu)) return;
 
 	Menu->Setup();
+	Menu->SetMenuInterface(this);
 }
 
 void AUMGHandler::Host()
@@ -54,6 +54,16 @@ void AUMGHandler::Join(FString ipAddress)
 	instance->Join(ipAddress);
 }
 
-void AUMGHandler::ToggleMenu(bool isActive)
+void AUMGHandler::LeaveServer()
 {
+	if (!ensure(instance)) return;
+
+	instance->LeaveServer();
+}
+
+void AUMGHandler::ExitGame()
+{
+	if (!ensure(instance)) return;
+
+	instance->ExitGame();
 }
